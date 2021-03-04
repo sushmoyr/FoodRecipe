@@ -1,14 +1,13 @@
-package com.sushmoyr.foodrecipe
+package com.sushmoyr.foodrecipe.ui
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.sushmoyr.foodrecipe.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +21,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.recipiesFragment,
                 R.id.favouriteFragment,
-                R.id.foodJokeFragment))
+                R.id.foodJokeFragment
+            ))
 
         bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
