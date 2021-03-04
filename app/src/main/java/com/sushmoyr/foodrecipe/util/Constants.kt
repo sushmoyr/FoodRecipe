@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe
+package com.sushmoyr.foodrecipe.util
 
 class Constants {
 

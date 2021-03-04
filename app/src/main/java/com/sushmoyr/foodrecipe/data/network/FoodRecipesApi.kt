@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe
+package com.sushmoyr.foodrecipe.data.network
 
 import com.sushmoyr.foodrecipe.models.FoodRecipe
 import retrofit2.Response
