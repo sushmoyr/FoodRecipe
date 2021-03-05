@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe.data
+package com.sushmoyr.foodrecipe.data.network
 
 import com.sushmoyr.foodrecipe.data.network.FoodRecipesApi
 import com.sushmoyr.foodrecipe.models.FoodRecipe

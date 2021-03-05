@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe
+package com.sushmoyr.foodrecipe.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
