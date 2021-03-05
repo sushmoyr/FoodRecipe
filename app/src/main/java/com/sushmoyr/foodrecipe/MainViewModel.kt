@@ -14,9 +14,10 @@ import com.sushmoyr.foodrecipe.util.NetworkResult
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class MainViewModel @ViewModelInject constructor (
+class MainViewModel @ViewModelInject constructor(
     private val repository: Repository,
-    application: Application): AndroidViewModel(application) {
+    application: Application
+) : AndroidViewModel(application) {
 
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
@@ -25,27 +26,24 @@ class MainViewModel @ViewModelInject constructor (
     }
 
     private suspend fun getRecipesSafeCall(queries: Map<String, String>) {
-        if(hasInternetConnection())
-        {
+        if (hasInternetConnection()) {
             try {
                 val response = repository.remote.getRecipes(queries)
                 recipesResponse.value = handleRecipesResponse(response)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 e.stackTrace
             }
-        }
-        else
-        {
+        } else {
             recipesResponse.value = NetworkResult.Error("No Internet Connection")
         }
     }
 
-    private fun handleRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe>? {
+    private fun handleRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe> {
         when {
             response.message().toString().contains("timeout") -> {
                 return NetworkResult.Error("Timeout")
             }
-            response.code()==402 -> {
+            response.code() == 402 -> {
                 return NetworkResult.Error("API key limited")
             }
             response.body()!!.results.isNullOrEmpty() -> {
