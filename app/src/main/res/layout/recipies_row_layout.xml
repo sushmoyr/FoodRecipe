@@ -20,6 +20,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,10 +38,12 @@
 
                 <ImageView
                     android:id="@+id/recipe_image_view"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:loadImageFromUrl="@{result.image}"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guide1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -54,7 +58,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/courgette"
                     android:maxLines="2"
-                    android:text="TextView"
+                    android:text="@{result.title}"
                     android:textColor="@color/darker"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -62,14 +66,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/description_textview"
+                    android:id="@+id/description_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:lines="3"
                     android:maxLines="3"
-                    android:text="TextView"
+                    android:text="@{result.summary}"
                     android:textColor="@color/darkGray"
                     app:layout_constraintEnd_toEndOf="@+id/title_text_view"
                     app:layout_constraintStart_toStartOf="@+id/title_text_view"
@@ -84,7 +88,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/favourite_counter"
                     app:layout_constraintStart_toStartOf="@+id/favourite_counter"
-                    app:layout_constraintTop_toBottomOf="@+id/description_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/description_text"
                     app:srcCompat="@drawable/ic_heart"
                     app:tint="@color/red" />
 
@@ -92,27 +96,27 @@
                     android:id="@+id/favourite_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:setNumberOfLikes="@{result.aggregateLikes}"
                     android:textAlignment="center"
-                    app:layout_constraintStart_toStartOf="@+id/description_textview"
+                    app:layout_constraintStart_toStartOf="@+id/description_text"
                     app:layout_constraintTop_toBottomOf="@+id/favourite_icon" />
 
                 <ImageView
                     android:id="@+id/time_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="@color/yellow"
                     app:layout_constraintEnd_toEndOf="@+id/time_counter"
                     app:layout_constraintStart_toStartOf="@+id/time_counter"
                     app:layout_constraintTop_toTopOf="@+id/favourite_icon"
-                    app:srcCompat="@drawable/ic_time" />
+                    app:srcCompat="@drawable/ic_time"
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:id="@+id/time_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:text="100"
+                    android:setNumberOfMinutes="@{result.readyInMinutes}"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/favourite_counter"
                     app:layout_constraintTop_toBottomOf="@+id/time_icon" />
@@ -121,6 +125,7 @@
                     android:id="@+id/leaf_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:applyVeganColor="@{result.vegan}"
                     app:layout_constraintEnd_toEndOf="@+id/textView5"
                     app:layout_constraintStart_toStartOf="@+id/textView5"
                     app:layout_constraintTop_toTopOf="@+id/time_icon"
@@ -131,10 +136,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:applyVeganColor="@{result.vegan}"
                     android:text="Vegan"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/time_counter"
                     app:layout_constraintTop_toBottomOf="@+id/leaf_icon" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
