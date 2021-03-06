@@ -1,6 +1,7 @@
 package com.sushmoyr.foodrecipe.viewmodels
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
@@ -17,6 +18,7 @@ import com.sushmoyr.foodrecipe.util.Constants.Companion.QUERY_DIET
 import com.sushmoyr.foodrecipe.util.Constants.Companion.QUERY_FILL_INGREDIENTS
 import com.sushmoyr.foodrecipe.util.Constants.Companion.QUERY_NUMBER
 import com.sushmoyr.foodrecipe.util.Constants.Companion.QUERY_TYPE
+import com.sushmoyr.foodrecipe.util.Constants.Companion.QUERY_SEARCH
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -42,7 +44,7 @@ class RecipesViewModel @ViewModelInject constructor(
             dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
         }
 
-    fun saveBackOnline(backOnline: Boolean) =
+    private fun saveBackOnline(backOnline: Boolean) =
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveBackOnline(backOnline)
         }
@@ -63,6 +65,20 @@ class RecipesViewModel @ViewModelInject constructor(
         queries[QUERY_DIET] = dietType
         queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
+        
+        Log.d("latest", "Api key = $API_KEY")
+        return queries
+    }
+
+    fun applySearchQuery(searchQuery: String): HashMap<String, String> {
+        val queries = HashMap<String, String>()
+
+        queries[QUERY_SEARCH] = searchQuery
+        queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+        queries[QUERY_API_KEY] = API_KEY
+        queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
+        queries[QUERY_FILL_INGREDIENTS] = "true"
+
         return queries
     }
 

@@ -32,5 +32,6 @@
 
     <color name="checkedChipBackgroundColor">#206200EA</color>
     <color name="chipBackgroundColor">@color/lightGray</color>
+    <color name="actionBarBackgroundColor">@color/colorPrimary</color>
 
 </resources>

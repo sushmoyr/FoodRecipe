@@ -2,12 +2,10 @@ package com.sushmoyr.foodrecipe.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,7 +25,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecipesFragment : Fragment() {
+class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val args by navArgs<RecipesFragmentArgs>()
 
@@ -45,6 +43,8 @@ class RecipesFragment : Fragment() {
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipeViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
+        setHasOptionsMenu(true)
 
     }
 
@@ -67,7 +67,7 @@ class RecipesFragment : Fragment() {
         lifecycleScope.launch {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
-                .collect{ status->
+                .collect { status ->
                     Log.d("debug", status.toString())
                     recipeViewModel.networkStatus = status
                     recipeViewModel.showNetworkStatus()
@@ -75,16 +75,42 @@ class RecipesFragment : Fragment() {
                 }
         }
 
-        binding.recipesFab.setOnClickListener{
-            if(recipeViewModel.networkStatus){
+        binding.recipesFab.setOnClickListener {
+            if (recipeViewModel.networkStatus) {
                 findNavController().navigate(R.id.action_recipiesFragment_to_recipesBottomSheet)
-            }
-            else
+            } else
                 recipeViewModel.showNetworkStatus()
 
         }
 
         return binding.root
+    }
+
+    private fun setUpRecyclerView() {
+        binding.shimmerRecyclerView.adapter = adapter
+        binding.shimmerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        showShimmerEffect()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.recipes_menu, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query != null)
+        {
+            searchApiData(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 
     private fun readDatabase() {
@@ -99,12 +125,6 @@ class RecipesFragment : Fragment() {
                 }
             })
         }
-    }
-
-    private fun setUpRecyclerView() {
-        binding.shimmerRecyclerView.adapter = adapter
-        binding.shimmerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        showShimmerEffect()
     }
 
     private fun requestApiData() {
@@ -136,6 +156,33 @@ class RecipesFragment : Fragment() {
         })
     }
 
+    private fun searchApiData(searchQuery: String) {
+        showShimmerEffect()
+        Log.d("latest", "searched with ${searchQuery}")
+        mainViewModel.searchRecipes(recipeViewModel.applySearchQuery(searchQuery))
+        mainViewModel.searchedRecipesResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    hideShimmerEffect()
+                    val foodRecipe = response.data
+                    foodRecipe?.let { adapter.setData(it) }
+                }
+                is NetworkResult.Error -> {
+                    hideShimmerEffect()
+                    loadDataFromCache()
+                    Log.d("latest", "Error ${response.message.toString()}")
+                    Toast.makeText(requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResult.Loading -> {
+                    Log.d("latest","Loading")
+                    showShimmerEffect()
+                }
+            }
+        })
+    }
+
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readRecipe.observe(viewLifecycleOwner, { database ->
@@ -159,5 +206,6 @@ class RecipesFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 
 }

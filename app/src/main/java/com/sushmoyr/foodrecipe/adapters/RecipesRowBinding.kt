@@ -1,15 +1,35 @@
 package com.sushmoyr.foodrecipe.adapters
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
 import coil.load
 import com.sushmoyr.foodrecipe.R
+import com.sushmoyr.foodrecipe.models.Result
+import com.sushmoyr.foodrecipe.ui.fragments.RecipesFragmentDirections
 
 class RecipesRowBinding {
     companion object {
+
+        @BindingAdapter("onRecipeClickListener")
+        @JvmStatic
+        fun onRecipeClickListener(recipeRowLayout: ConstraintLayout, result: Result){
+            recipeRowLayout.setOnClickListener{
+                Log.d("onRecipeClickListener","Clicked")
+                try {
+                    val action =
+                        RecipesFragmentDirections.actionRecipiesFragmentToDetailsActivity(result)
+                    recipeRowLayout.findNavController().navigate(action)
+                }catch (e: Exception) {
+                    Log.d("onRecipeClickListener", e.toString())
+                }
+            }
+        }
 
         @BindingAdapter("android:loadImageFromUrl")
         @JvmStatic
