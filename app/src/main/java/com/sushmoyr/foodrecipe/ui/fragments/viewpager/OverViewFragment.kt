@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe.ui.fragments
+package com.sushmoyr.foodrecipe.ui.fragments.viewpager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

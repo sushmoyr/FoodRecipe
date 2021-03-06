@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe.ui.fragments
+package com.sushmoyr.foodrecipe.ui.fragments.viewpager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.sushmoyr.foodrecipe.R
 
-class IngredientsFragment : Fragment() {
+class InstructionsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ingredients, container, false)
+        return inflater.inflate(R.layout.fragment_instructions, container, false)
     }
-
 
 }

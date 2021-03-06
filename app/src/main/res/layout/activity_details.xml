@@ -22,7 +22,8 @@
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:id="@+id/tabLayout"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
             style="@style/CustomTabLayoutStyle"/>
     </com.google.android.material.appbar.AppBarLayout>
