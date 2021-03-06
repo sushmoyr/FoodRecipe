@@ -7,9 +7,17 @@
 
     <fragment
         android:id="@+id/recipiesFragment"
-        android:name="com.sushmoyr.foodrecipe.ui.fragments.RecipiesFragment"
+        android:name="com.sushmoyr.foodrecipe.ui.fragments.RecipesFragment"
         android:label="@string/recipies_fragment_title"
-        tools:layout="@layout/fragment_recipies" />
+        tools:layout="@layout/fragment_recipies" >
+        <action
+            android:id="@+id/action_recipiesFragment_to_recipesBottomSheet"
+            app:destination="@id/recipesBottomSheet" />
+        <argument
+            android:name="backFromBottomSheet"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.sushmoyr.foodrecipe.ui.fragments.FavouriteFragment"
@@ -20,4 +28,13 @@
         android:name="com.sushmoyr.foodrecipe.ui.fragments.FoodJokeFragment"
         android:label="@string/food_joke_fragment_title"
         tools:layout="@layout/fragment_food_joke" />
+    <dialog
+        android:id="@+id/recipesBottomSheet"
+        android:name="com.sushmoyr.foodrecipe.ui.fragments.RecipesBottomSheet"
+        android:label="recipes_bottom_sheet"
+        tools:layout="@layout/recipes_bottom_sheet" >
+        <action
+            android:id="@+id/action_recipesBottomSheet_to_recipiesFragment"
+            app:destination="@id/recipiesFragment" />
+    </dialog>
 </navigation>

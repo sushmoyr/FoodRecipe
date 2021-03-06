@@ -30,4 +30,7 @@
 
     <color name="green">#00C980</color>
 
+    <color name="checkedChipBackgroundColor">#206200EA</color>
+    <color name="chipBackgroundColor">@color/lightGray</color>
+
 </resources>
