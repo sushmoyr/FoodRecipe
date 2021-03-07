@@ -12,6 +12,7 @@ import coil.load
 import com.sushmoyr.foodrecipe.R
 import com.sushmoyr.foodrecipe.models.Result
 import com.sushmoyr.foodrecipe.ui.fragments.RecipesFragmentDirections
+import org.jsoup.Jsoup
 
 class RecipesRowBinding {
     companion object {
@@ -73,6 +74,15 @@ class RecipesRowBinding {
                         )
                     }
                 }
+            }
+        }
+
+        @BindingAdapter("parseHtml")
+        @JvmStatic
+        fun parseHtml(textView: TextView, value:String?){
+            if(value != null){
+                val desc = Jsoup.parse(value).text()
+                textView.text = desc
             }
         }
     }
