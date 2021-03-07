@@ -1,6 +1,5 @@
 package com.sushmoyr.foodrecipe.viewmodels
 
-import android.accounts.NetworkErrorException
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,7 +7,8 @@ import android.net.NetworkCapabilities
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.sushmoyr.foodrecipe.data.Repository
-import com.sushmoyr.foodrecipe.data.database.RecipesEntity
+import com.sushmoyr.foodrecipe.data.database.entities.FavouritesEntity
+import com.sushmoyr.foodrecipe.data.database.entities.RecipesEntity
 import com.sushmoyr.foodrecipe.models.FoodRecipe
 import com.sushmoyr.foodrecipe.util.NetworkResult
 import kotlinx.coroutines.Dispatchers
@@ -22,13 +22,34 @@ class MainViewModel @ViewModelInject constructor(
 
     /* ROOM DATABASE */
 
-    val readRecipe: LiveData<List<RecipesEntity>> = repository.local.readDatabase().asLiveData()
+    val readRecipe: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
+    val readFavouritesRecipe: LiveData<List<FavouritesEntity>> = repository.local.readFavouriteRecipes().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertRecipes(recipesEntity)
         }
     }
+
+    private fun insertFavouriteRecipes(favouritesEntity: FavouritesEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavouriteRecipes(favouritesEntity)
+        }
+    }
+
+    private fun deleteFavouriteRecipes(favouritesEntity: FavouritesEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavouriteRecipe(favouritesEntity)
+        }
+    }
+
+    private fun deleteAllFavouriteRecipes(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavouriteRecipes()
+        }
+    }
+
+
 
     /* Retrofit */
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()

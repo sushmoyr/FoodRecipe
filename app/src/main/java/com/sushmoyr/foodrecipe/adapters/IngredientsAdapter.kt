@@ -1,11 +1,14 @@
 package com.sushmoyr.foodrecipe.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.request.ImageRequest
 import com.sushmoyr.foodrecipe.R
 import com.sushmoyr.foodrecipe.models.ExtendedIngredient
 import com.sushmoyr.foodrecipe.util.Constants.Companion.BASE_IMAGE_URL

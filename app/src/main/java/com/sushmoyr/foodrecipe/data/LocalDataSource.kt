@@ -1,7 +1,8 @@
 package com.sushmoyr.foodrecipe.data
 
 import com.sushmoyr.foodrecipe.data.database.RecipesDao
-import com.sushmoyr.foodrecipe.data.database.RecipesEntity
+import com.sushmoyr.foodrecipe.data.database.entities.FavouritesEntity
+import com.sushmoyr.foodrecipe.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -13,7 +14,25 @@ class LocalDataSource @Inject constructor(
         recipesDao.insertRecipes(recipesEntity)
     }
 
-    fun readDatabase(): Flow<List<RecipesEntity>>{
+    fun readRecipes(): Flow<List<RecipesEntity>>{
         return recipesDao.readRecipes()
     }
+
+    fun readFavouriteRecipes(): Flow<List<FavouritesEntity>>{
+        return recipesDao.readFavouriteRecipe()
+    }
+
+    suspend fun insertFavouriteRecipes(favouritesEntity: FavouritesEntity){
+        recipesDao.insertFavouriteRecipe(favouritesEntity)
+    }
+
+    suspend fun deleteFavouriteRecipe(favouritesEntity: FavouritesEntity){
+        recipesDao.deleteFavouriteRecipes(favouritesEntity)
+    }
+
+    suspend fun deleteAllFavouriteRecipes(){
+        recipesDao.deleteAllFavouriteRecipes()
+    }
+
+
 }

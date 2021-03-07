@@ -3,7 +3,7 @@ package com.sushmoyr.foodrecipe.adapters
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.sushmoyr.foodrecipe.data.database.RecipesEntity
+import com.sushmoyr.foodrecipe.data.database.entities.RecipesEntity
 import com.sushmoyr.foodrecipe.models.FoodRecipe
 import com.sushmoyr.foodrecipe.util.NetworkResult
 

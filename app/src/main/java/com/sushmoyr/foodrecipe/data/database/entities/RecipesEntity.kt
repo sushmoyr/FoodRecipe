@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe.data.database
+package com.sushmoyr.foodrecipe.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
