@@ -34,4 +34,11 @@
     <string name="diet_type">Diet Type</string>
     <string name="apply">Apply</string>
     <string name="search">Search</string>
+    <string name="cover_image">Cover Image</string>
+    <string name="_100">100</string>
+    <string name="checked_icon">checked Icon</string>
+    <string name="title">Title</string>
+    <string name="dairy_free">Dairy Free</string>
+    <string name="healthy">Healthy</string>
+    <string name="cheap">Cheap</string>
 </resources>
