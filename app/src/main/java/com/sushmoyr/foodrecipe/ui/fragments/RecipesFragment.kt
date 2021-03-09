@@ -36,6 +36,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentRecipiesBinding? = null
     private val binding get() = _binding!!
 
+    @ExperimentalCoroutinesApi
     private lateinit var networkListener: NetworkListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +69,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->
-                    Log.d("debug", status.toString())
+                    Log.d("Network state", status.toString())
                     recipeViewModel.networkStatus = status
                     recipeViewModel.showNetworkStatus()
                     readDatabase()

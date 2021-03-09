@@ -21,7 +21,7 @@ class FragmentRecipesBindingAdapter {
             if (apiResponse is NetworkResult.Error && database.isNullOrEmpty()) {
                 view.visibility = View.VISIBLE
             } else if (apiResponse is NetworkResult.Loading) {
-                view.visibility = View.VISIBLE
+                view.visibility = View.INVISIBLE
             } else if (apiResponse is NetworkResult.Success) {
                 view.visibility = View.INVISIBLE
             }
