@@ -1,22 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="result"
-            type="com.sushmoyr.foodrecipe.models.Result" />
 
+        <variable
+            name="favouritesEntity"
+            type="com.sushmoyr.foodrecipe.data.database.entities.FavouritesEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/favourites_recipes_row_layout_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        >
+        android:layout_marginBottom="4dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
@@ -33,16 +30,17 @@
             app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/favourites_recipes_row_layout_root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                onRecipeClickListener="@{result}"
                 android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/favourites_title_image"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:loadImageFromUrl="@{result.image}"
+                    android:contentDescription="@string/checked_icon"
+                    android:loadImageFromUrl="@{favouritesEntity.result.image}"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guide1"
@@ -60,7 +58,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/courgette"
                     android:maxLines="2"
-                    android:text="@{result.title}"
+                    android:text="@{favouritesEntity.result.title}"
                     android:textColor="@color/darker"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +73,7 @@
                     android:ellipsize="end"
                     android:lines="3"
                     android:maxLines="3"
-                    parseHtml="@{result.summary}"
+                    android:text="@{favouritesEntity.result.summary}"
                     android:textColor="@color/darkGray"
                     app:layout_constraintEnd_toEndOf="@+id/favourites_title_text_view"
                     app:layout_constraintStart_toStartOf="@+id/favourites_title_text_view"
@@ -87,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="36dp"
+                    android:contentDescription="@string/checked_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/favourites_favourite_counter"
                     app:layout_constraintStart_toStartOf="@+id/favourites_favourite_counter"
@@ -98,7 +97,7 @@
                     android:id="@+id/favourites_favourite_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:setNumberOfLikes="@{result.aggregateLikes}"
+                    android:setNumberOfLikes="@{favouritesEntity.result.aggregateLikes}"
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="@+id/favourites_description_text"
                     app:layout_constraintTop_toBottomOf="@+id/favourites_favourite_icon" />
@@ -107,6 +106,7 @@
                     android:id="@+id/favourites_time_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/checked_icon"
                     app:layout_constraintEnd_toEndOf="@+id/favourites_time_counter"
                     app:layout_constraintStart_toStartOf="@+id/favourites_time_counter"
                     app:layout_constraintTop_toTopOf="@+id/favourites_favourite_icon"
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:setNumberOfMinutes="@{result.readyInMinutes}"
+                    android:setNumberOfMinutes="@{favouritesEntity.result.readyInMinutes}"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/favourites_favourite_counter"
                     app:layout_constraintTop_toBottomOf="@+id/favourites_time_icon" />
@@ -127,7 +127,8 @@
                     android:id="@+id/favourites_leaf_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:applyVeganColor="@{result.vegan}"
+                    android:applyVeganColor="@{favouritesEntity.result.vegan}"
+                    android:contentDescription="@string/checked_icon"
                     app:layout_constraintEnd_toEndOf="@+id/favourites_vegan_tv"
                     app:layout_constraintStart_toStartOf="@+id/favourites_vegan_tv"
                     app:layout_constraintTop_toTopOf="@+id/favourites_time_icon"
@@ -138,8 +139,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:applyVeganColor="@{result.vegan}"
-                    android:text="Vegan"
+                    android:applyVeganColor="@{favouritesEntity.result.vegan}"
+                    android:text="@string/vegan"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/favourites_time_counter"
                     app:layout_constraintTop_toBottomOf="@+id/favourites_leaf_icon" />

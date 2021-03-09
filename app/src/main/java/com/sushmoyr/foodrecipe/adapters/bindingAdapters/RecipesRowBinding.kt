@@ -1,4 +1,4 @@
-package com.sushmoyr.foodrecipe.adapters
+package com.sushmoyr.foodrecipe.adapters.bindingAdapters
 
 import android.util.Log
 import android.view.View
