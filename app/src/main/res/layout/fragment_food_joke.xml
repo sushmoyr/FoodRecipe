@@ -18,11 +18,13 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/food_joke_cardView"
+            setVisibilityApiResponse="@{mainViewModel.foodJokeResponse}"
+            setVisibilityDatabase="@{mainViewModel.readFoodJoke}"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:cardCornerRadius="6dp"
             app:cardElevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,6 +81,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:visibility="invisible"
+            setVisibilityApiResponse="@{mainViewModel.foodJokeResponse}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
