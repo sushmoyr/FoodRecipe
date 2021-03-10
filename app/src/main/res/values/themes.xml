@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionModeBackground">@color/contextualActionBarColor</item>
     </style>
 
     <style name="DetailsActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -15,4 +16,5 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
+    <color name="contextualActionBarColor">@color/darker</color>
 </resources>

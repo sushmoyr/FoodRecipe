@@ -1,28 +1,26 @@
 package com.sushmoyr.foodrecipe.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sushmoyr.foodrecipe.R
 import com.sushmoyr.foodrecipe.adapters.FavouritesRecipeAdapter
 import com.sushmoyr.foodrecipe.databinding.FragmentFavouriteBinding
 import com.sushmoyr.foodrecipe.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_favourite.view.*
 
 @AndroidEntryPoint
 class FavouriteFragment : Fragment() {
 
-    private val adapter: FavouritesRecipeAdapter by lazy {
-        FavouritesRecipeAdapter()
-    }
     private val mainViewModel: MainViewModel by viewModels()
+    private val adapter: FavouritesRecipeAdapter by lazy {
+        FavouritesRecipeAdapter(requireActivity(), mainViewModel)
+    }
+
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
@@ -54,5 +52,6 @@ class FavouriteFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        adapter.clearContextualActionMode()
     }
 }
