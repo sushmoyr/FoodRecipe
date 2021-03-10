@@ -47,4 +47,5 @@
     <string name="delete_favourite_meny">Delete Favourite Meny</string>
     <string name="food_joke_dummy_text">Try drying margerine casserole mixed with red wine.</string>
     <string name="no_joke_found">No Joke Found</string>
+    <string name="share">Share</string>
 </resources>
