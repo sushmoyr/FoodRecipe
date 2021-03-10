@@ -45,4 +45,6 @@
     <string name="error_image">Error Image</string>
     <string name="no_favourites_recipes">No Favourites Recipes</string>
     <string name="delete_favourite_meny">Delete Favourite Meny</string>
+    <string name="food_joke_dummy_text">Try drying margerine casserole mixed with red wine.</string>
+    <string name="no_joke_found">No Joke Found</string>
 </resources>
